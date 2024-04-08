@@ -48,7 +48,8 @@ const App = (): JSX.Element => {
   }
 
   const onRemoveAll = (): void => {
-    const newTodos = todos.filter(todo => todo === '<>')
+    const t = {}
+    const newTodos = todos.filter(todo => todo === t)
     localStorage.clear()
     setTodos(newTodos)
   }
