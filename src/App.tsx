@@ -4,7 +4,7 @@ import { Todos } from './components/Todos'
 const App = (): JSX.Element => {
   return (
 
-    <Todos />
+    <Todos id={''} name={''} completed={false} />
 
   )
 }
