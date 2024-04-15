@@ -36,7 +36,7 @@ export const todoSlice = createSlice({
       return []
     },
     createTodo: (state, action: PayloadAction<Todo>) => {
-      const id = crypto.randomUUID() // Genera un nuevo UUID
+      const id = crypto.randomUUID()
       const newTodo: TodoType = { id, ...action.payload, completed: false }
       localStorage.setItem(id, JSON.stringify(newTodo))
       return [...state, newTodo]
