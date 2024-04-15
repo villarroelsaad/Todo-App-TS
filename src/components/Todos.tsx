@@ -1,22 +1,18 @@
-import { type TodoType, type ListOfTodos, type TodoTitle } from '../types'
 import { Todo } from './Todo'
 import { Create } from './Create'
+import { useTodosAction } from '../hooks/useTodoActions'
+import { useAppSelector } from '../hooks/store'
+import { type TodoType } from '../types'
 
-interface Props {
-  todos: ListOfTodos
-  onCompleted: ({ id, completed }: Pick<TodoType, 'id' | 'completed'>) => void
-  onRemoveTodo: (id: string) => void
-  onRemoveAll: () => void
-  onCreate: ({ name }: TodoTitle) => void
-}
-
-export const Todos: React.FC<Props> = ({ todos, onCreate, onRemoveTodo, onCompleted, onRemoveAll }) => {
+export const Todos: React.FC<TodoType> = () => {
+  const todos = useAppSelector((state) => state.todos)
+  const { onRemoveAll } = useTodosAction()
   return (
 <>
     <ul className='container'>
           <div>
         <h1 className='title'>Todo App</h1>
-        <Create createTodo={onCreate}/>
+          <Create />
         </div>
           {todos.map(todo => (
             <li key={todo.id}
@@ -26,13 +22,10 @@ export const Todos: React.FC<Props> = ({ todos, onCreate, onRemoveTodo, onComple
                       id={todo.id}
                       name={todo.name}
                 completed={todo.completed}
-                onRemoveTodo={onRemoveTodo}
-                onCompleted={onCompleted}
               />
-
               </li>
           ))}
-          <button className='Remove-completed' onClick={onRemoveAll}>Delete all</button>
+        <button className='Remove-completed' onClick={onRemoveAll}>Delete all</button>
       </ul>
 
     </>

@@ -1,16 +1,13 @@
 import { useState } from 'react'
-import { type TodoTitle } from '../types'
+import { useTodosAction } from '../hooks/useTodoActions'
 
-interface Props {
-  createTodo: ({ name }: TodoTitle) => void
-}
-
-export const Create: React.FC<Props> = ({ createTodo }) => {
+export const Create: React.FC = () => {
   const [inputValue, setInpuValue] = useState('')
+  const { onCreate } = useTodosAction()
 
   const handlesubmit = (event: React.KeyboardEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    createTodo({ name: inputValue })
+    onCreate({ name: inputValue })
     setInpuValue('')
   }
   return (
